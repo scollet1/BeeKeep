@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Bee.gd" type="Script" id=1]
+[ext_resource path="res://Area.gd" type="Script" id=2]
+[ext_resource path="res://beelowpoly.dae" type="PackedScene" id=3]
+[ext_resource path="res://beewingslowpoly.dae" type="PackedScene" id=4]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.1
+height = 0.1
+
+[sub_resource type="SphereShape" id=6]
+radius = 3.0
+
+[sub_resource type="Animation" id=7]
+resource_name = "Flying"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/WingRight:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1, -10 ), Vector3( 45, 0, -30 ), Vector3( 0, -1, -10 ), Vector3( 45, 0, -30 ), Vector3( 0, -1, -10 ), Vector3( 45, 0, -30 ), Vector3( 0, -1, -10 ), Vector3( 45, 0, -30 ), Vector3( 0, -1, -10 ), Vector3( 45, 0, -30 ), Vector3( 0, -1, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/WingLeft:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -7.74306e-09, -179, 170 ), Vector3( -45, -180, 150 ), Vector3( -7.74306e-09, -179, 170 ), Vector3( -45, -180, 150 ), Vector3( -7.74306e-09, -179, 170 ), Vector3( -45, -180, 150 ), Vector3( -7.74306e-09, -179, 170 ), Vector3( -45, -180, 150 ), Vector3( -7.74306e-09, -179, 170 ), Vector3( -45, -180, 150 ), Vector3( -7.74306e-09, -179, 170 ) ]
+}
+
+[node name="Bee" type="KinematicBody"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 6 )
+
+[node name="DetectFlower" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -1, -5 )
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Body" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.093696, 0, -3.053e-08, 0, 0.093696, 0, 3.053e-08, 0, -0.093696, 0, 0, 0 )
+
+[node name="WingRight" parent="Body" instance=ExtResource( 4 )]
+transform = Transform( 0.492329, 0.0868108, -0.0087262, -0.0868241, 0.492404, 0, 0.00859363, 0.00151529, 0.499924, 0, 1, 0 )
+
+[node name="WingLeft" parent="Body" instance=ExtResource( 4 )]
+transform = Transform( -0.492329, -0.0868109, 0.00872623, -0.0868241, 0.492404, -6.75709e-11, 0.00859366, 0.00151529, 0.499924, 0, 1, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 10.0
+anims/Flying = SubResource( 7 )

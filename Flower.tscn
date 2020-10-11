@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Flower.gd" type="Script" id=1]
+[ext_resource path="res://Bulb.tscn" type="PackedScene" id=2]
+[ext_resource path="res://flower1.dae" type="PackedScene" id=3]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 0.0461667
+height = 2.34382
+
+[node name="Flower" type="StaticBody"]
+transform = Transform( 0.645559, 0, 0, 0, 0.645559, 0, 0, 0, 0.645559, 0, 0, 0 )
+script = ExtResource( 1 )
+
+[node name="Bulb" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.249856, 0, 0, 0, 0.249856, 0, 0, 0, 0.259377, 0.138244, 2.29035, -0.00275826 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.993118, 0.218812, -0.0962641, -0.216534, 0.997693, 0.0338996, 0.101284, -0.0125521, 1.01637, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="Body" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.992364, -0.103415, 0.0672201, 0.101013, 0.994151, 0.0382084, -0.0707782, -0.0311265, 0.997006, 0.26375, 0.970383, 0.0393097 )

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://FlowerPatch.gd" type="Script" id=2]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 5.0
+height = 5.0
+
+[node name="FlowerPatch" type="Area"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
